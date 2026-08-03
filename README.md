@@ -236,7 +236,30 @@ docker --version
 
 ```bash
 docker info
-# 출력 예정
+## Docker 설치 검증
+
+<details>
+<summary>🔍 docker info 전체 출력</summary>
+
+```bash
+Client:
+ Version:    28.5.2
+ Context:    orbstack
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc.)
+   Version:  v0.29.1
+   Path:     /Users/c5312ksy5312/.docker/cli-plugins/docker-buildx
+  compose: Docker Compose (Docker Inc.)
+   Version:  v2.40.3
+   Path:     /Users/c5312ksy5312/.docker/cli-plugins/docker-compose
+
+Server:
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 0
 ```
 
 ---
