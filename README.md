@@ -12,9 +12,10 @@ Users/c5312ksy5312/codyssey-mission_1-1
 ls      # 폴더 내용 보기
 README.md
 
-$ touch hello.txt   # 파일 생성 → hello.txt 생성 완료
-$ echo 'Hello, World!' > hello.txt   # 파일에 내용 입력 → 저장 완료
+touch hello.txt   # 파일 생성 → hello.txt 생성 완료
 
-$ cat hello.txt   # 파일 내용 확인 → Hello, World! 출력
+echo 'Hello, World!' > hello.txt   # 파일에 내용 입력 → 저장 완료
+
+cat hello.txt   # 파일 내용 확인 → Hello, World! 출력
 Hello, World!
 ```
