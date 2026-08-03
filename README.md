@@ -238,6 +238,7 @@ docker --version
 docker info
 ```
 <details>
+
 <summary>📋 docker info 전체 출력 결과</summary>
  ```bash
 Client:
