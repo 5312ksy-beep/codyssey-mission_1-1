@@ -53,6 +53,7 @@
 
 ```bash
 pwd
+
 /Users/c5312ksy5312/codyssey-mission_1-1
 ```
 
@@ -64,6 +65,7 @@ pwd
 
 ```bash
 ls -a
+
 # 출력 예정
 ```
 
@@ -88,7 +90,8 @@ cd codyssey-mission_1-1   # 다시 프로젝트 폴더로 이동
 ```bash
 mkdir test-dir
 ls
-# 출력 예정
+
+hello.txt       README.md       test-dir
 ```
 
 ---
