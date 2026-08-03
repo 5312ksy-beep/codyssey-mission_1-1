@@ -239,10 +239,8 @@ docker info
 ```
 <details>
  
----
 <summary>📋 docker info 전체 출력 결과</summary>
 
----
  ```bash
 
 Client:
@@ -343,12 +341,10 @@ Server:
 WARNING: DOCKER_INSECURE_NO_IPTABLES_RAW is set
 
 ```
----
 </details>
 
 ✅ Docker 정상 작동!
 
----
 ---
 
 ## 7. Docker 기본 운영 명령
