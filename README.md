@@ -239,6 +239,7 @@ docker info
 ```
 <details>
 <summary>📋 docker info 전체 출력 결과</summary>
+ ```bash
 Client:
  Version:    28.5.2
  Context:    orbstack
@@ -335,6 +336,7 @@ Server:
    Base: fd07:b51a:cc66:d000::/56, Size: 64
 
 WARNING: DOCKER_INSECURE_NO_IPTABLES_RAW is set
+```
 </details>
 
 ✅ Docker 정상 작동!
