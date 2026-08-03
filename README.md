@@ -66,8 +66,8 @@ pwd
 ```bash
 ls -a
 
-# 출력 예정
-```
+.               ..              .git            README.md
+``` 
 
 ---
 
@@ -91,7 +91,7 @@ cd codyssey-mission_1-1   # 다시 프로젝트 폴더로 이동
 mkdir test-dir
 ls
 
-hello.txt       README.md       test-dir
+README.md       test-dir
 ```
 
 ---
@@ -104,7 +104,8 @@ hello.txt       README.md       test-dir
 ```bash
 touch hello.txt
 ls
-# 출력 예정
+
+hello.txt       README.md       test-dir
 ```
 
 ---
@@ -116,6 +117,7 @@ ls
 ```bash
 echo 'Hello, World!' > hello.txt
 cat hello.txt
+
 Hello, World!
 ```
 
@@ -129,7 +131,8 @@ Hello, World!
 ```bash
 cp hello.txt hello-copy.txt
 ls
-# 출력 예정
+
+hello-copy.txt  hello.txt       README.md       test-dir
 ```
 
 ---
@@ -140,9 +143,15 @@ ls
 같은 폴더 안에서 쓰면 이름 변경, 다른 경로를 지정하면 이동이 됩니다.
 
 ```bash
-mv hello-copy.txt hello-renamed.txt
+mv hello-copy.txt hello-renamed.txt # 이름 변경
 ls
-# 출력 예정
+
+hello-renamed.txt       hello.txt               README.md               test-dir
+
+mv hello-renamed.txt test-dir/  # 파일이동 
+ls
+
+hello.txt    README.md    test-dir
 ```
 
 ---
@@ -154,8 +163,10 @@ ls
 
 ```bash
 rm hello-renamed.txt
+cd test-dir
 ls
-# 출력 예정
+
+# 안에 파일이 없어져서 빈 디렉토리라 아무것도 출력되지 않음
 ```
 
 ---
@@ -178,16 +189,18 @@ ls
 
 ### 5-2. 파일 권한 변경
 
+`chmod`은 **change mode**의 약자입니다.  
 변경 전 권한을 먼저 확인하고, `chmod`로 변경한 뒤 다시 확인합니다.
 
 ```bash
-ls -l hello.txt          # 변경 전 확인
-# 출력 예정
+ls -l hello.txt          # 변경 전 확인 -l은 상세정보 확인
+
+-rw-r--r--  1 c5312ksy5312  c5312ksy5312  14  8  3 21:27 hello.txt # 644
 
 chmod 755 hello.txt      # 권한 변경
 
 ls -l hello.txt          # 변경 후 확인
-# 출력 예정
+-rwxr-xr-x  1 c5312ksy5312  c5312ksy5312  14  8  3 21:27 hello.txt # 755
 ```
 
 755는 **소유자(rwx) / 그룹(r-x) / 기타(r-x)** 를 의미합니다.  
@@ -198,13 +211,14 @@ ls -l hello.txt          # 변경 후 확인
 ### 5-3. 디렉토리 권한 변경
 
 ```bash
-ls -ld test-dir          # 변경 전 확인
-# 출력 예정
+ls -ld test-dir          # 변경 전 확인 -ld는 디렉토리의 상세정보 확인
+drwxr-xr-x  2 c5312ksy5312  c5312ksy5312  64  8  3 21:48 test-dir # 755
 
 chmod 644 test-dir       # 권한 변경
 
 ls -ld test-dir          # 변경 후 확인
-# 출력 예정
+
+drw-r--r--  2 c5312ksy5312  c5312ksy5312  64  8  3 21:48 test-dir # 644
 ```
 
 644는 **소유자(rw-) / 그룹(r--) / 기타(r--)** 를 의미합니다.  
@@ -225,7 +239,8 @@ Docker는 애플리케이션을 **컨테이너**라는 독립된 환경에서 �
 
 ```bash
 docker --version
-# 출력 예정
+
+Docker version 28.5.2, build ecc6942
 ```
 
 ---
@@ -237,8 +252,9 @@ docker --version
 ```bash
 docker info
 ```
-<details>
- 
+
+<details> 
+
 <summary>📋 docker info 전체 출력 결과</summary>
 
  ```bash
@@ -349,13 +365,36 @@ WARNING: DOCKER_INSECURE_NO_IPTABLES_RAW is set
 
 ## 7. Docker 기본 운영 명령
 
-### 7-1. 이미지 목록 확인
+### 7-1. 이미지 다운로드
 
 이미지는 컨테이너를 만들기 위한 **설계도**입니다.
 
 ```bash
-docker images
-# 출력 예정
+docker pull ubuntu # ubuntu 이미지를 Docker Hub에서 다운로드
+
+Using default tag: latest
+latest: Pulling from library/ubuntu
+ed819469700f: Pull complete 
+a3679419df18: Pull complete 
+Digest: sha256:3131b4cc82a783df6c9df078f86e01819a13594b865c2cad47bd1bca2b7063bb
+Status: Downloaded newer image for ubuntu:latest
+docker.io/library/ubuntu:lates
+
+docker pull nginx # nginx 이미지를 Docker Hub에서 다운로드
+
+Using default tag: latest
+latest: Pulling from library/nginx
+062e450697fa: Pull complete 
+82454cdbf456: Pull complete 
+3c7ab7949321: Pull complete 
+cacfcdd01f30: Pull complete 
+b6698f04e005: Pull complete 
+2bedaf25031a: Pull complete 
+d26f27cc8c41: Pull complete 
+Digest: sha256:5a88c9c45479443d7be2eadc894b4ed0a9801bae03d97a5760ae13b5c2005942
+Status: Downloaded newer image for nginx:latest
+docker.io/library/nginx:latest
+
 ```
 
 ---
