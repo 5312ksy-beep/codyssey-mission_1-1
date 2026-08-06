@@ -77,8 +77,11 @@ ls -a
 `..`은 상위 폴더를 의미하고, 폴더 이름을 직접 입력하면 해당 폴더로 이동합니다.
 
 ```bash
-cd ..          # 상위 디렉토리로 이동
-cd codyssey-mission_1-1   # 다시 프로젝트 폴더로 이동
+# 상위 디렉토리로 이동
+cd ..          
+
+# 다시 프로젝트 폴더로 이동
+cd codyssey-mission_1-1   
 ```
 
 ---
@@ -143,12 +146,14 @@ hello-copy.txt  hello.txt       README.md       test-dir
 같은 폴더 안에서 쓰면 이름 변경, 다른 경로를 지정하면 이동이 됩니다.
 
 ```bash
-mv hello-copy.txt hello-renamed.txt # 이름 변경
+# 이름 변경
+mv hello-copy.txt hello-renamed.txt 
 ls
 
 hello-renamed.txt       hello.txt               README.md               test-dir
 
-mv hello-renamed.txt test-dir/  # 파일이동 
+# 파일이동 
+mv hello-renamed.txt test-dir/  
 ls
 
 hello.txt    README.md    test-dir
@@ -193,13 +198,16 @@ ls
 변경 전 권한을 먼저 확인하고, `chmod`로 변경한 뒤 다시 확인합니다.
 
 ```bash
-ls -l hello.txt          # 변경 전 확인 -l은 상세정보 확인
+# 변경 전 확인 (-l은 상세정보 확인)
+ls -l hello.txt          
 
 -rw-r--r--  1 c5312ksy5312  c5312ksy5312  14  8  3 21:27 hello.txt # 644
 
-chmod 755 hello.txt      # 권한 변경
+# 권한 변경
+chmod 755 hello.txt    
+# 변경 후 확인  
+ls -l hello.txt   
 
-ls -l hello.txt          # 변경 후 확인
 -rwxr-xr-x  1 c5312ksy5312  c5312ksy5312  14  8  3 21:27 hello.txt # 755
 ```
 
@@ -211,12 +219,15 @@ ls -l hello.txt          # 변경 후 확인
 ### 5-3. 디렉토리 권한 변경
 
 ```bash
-ls -ld test-dir          # 변경 전 확인 -ld는 디렉토리의 상세정보 확인
+# 변경 전 확인 (-ld는 디렉토리의 상세정보 확인)
+ls -ld test-dir      
+
 drwxr-xr-x  2 c5312ksy5312  c5312ksy5312  64  8  3 21:48 test-dir # 755
 
-chmod 644 test-dir       # 권한 변경
-
-ls -ld test-dir          # 변경 후 확인
+ # 권한 변경
+chmod 644 test-dir     
+# 변경 후 확인 
+ls -ld test-dir          
 
 drw-r--r--  2 c5312ksy5312  c5312ksy5312  64  8  3 21:48 test-dir # 644
 ```
@@ -370,7 +381,8 @@ WARNING: DOCKER_INSECURE_NO_IPTABLES_RAW is set
 이미지는 컨테이너를 만들기 위한 **설계도**입니다.
 
 ```bash
-docker pull ubuntu # ubuntu 이미지를 Docker Hub에서 다운로드
+# ubuntu 이미지를 Docker Hub에서 다운로드
+docker pull ubuntu 
 
 Using default tag: latest
 latest: Pulling from library/ubuntu
@@ -380,7 +392,8 @@ Digest: sha256:3131b4cc82a783df6c9df078f86e01819a13594b865c2cad47bd1bca2b7063bb
 Status: Downloaded newer image for ubuntu:latest
 docker.io/library/ubuntu:lates
 
-docker pull nginx # nginx 이미지를 Docker Hub에서 다운로드
+# nginx 이미지를 Docker Hub에서 다운로드
+docker pull nginx 
 
 Using default tag: latest
 latest: Pulling from library/nginx
@@ -399,22 +412,95 @@ docker.io/library/nginx:latest
 
 ---
 
-### 7-2. 컨테이너 목록 확인
+### 7-2. 이미지 목록 확인
 
 ```bash
-docker ps        # 실행 중인 컨테이너만
-docker ps -a     # 종료된 컨테이너 포함 전체
-# 출력 예정
+# 다운로드된 이미지 목록 확인
+docker images    
+
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+nginx        latest    5253dc86cc93   30 hours ago   161MB
+ubuntu       latest    86a1a31fdd84   12 days ago    100MB
 ```
 
 ---
 
-### 7-3. 로그 및 리소스 확인
+### 7-3. 컨테이너 실행
+
+`docker run` 명령어로 이미지를 기반으로 컨테이너를 실행합니다.
+
+- `-d` : 백그라운드 실행 (detached mode)
+- `--name` : 컨테이너 이름 지정
+- `sleep 1000` : 컨테이너가 종료되지 않도록 대기 명령 실행
 
 ```bash
-docker logs [컨테이너ID]    # 컨테이너 로그 확인
-docker stats                # CPU/메모리 실시간 확인
-# 출력 예정
+# my-ubuntu라는 이름으로 백그라운드 실행
+docker run -d --name my-ubuntu ubuntu:20.04 sleep 1000    
+
+Unable to find image 'ubuntu:20.04' locally
+20.04: Pulling from library/ubuntu
+13b7e930469f: Pull complete 
+Digest: sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214
+Status: Downloaded newer image for ubuntu:20.04
+af5cbe0965ba1378db48ffd6e5a7b4eddd2bd5cbd26917afa5cdfcb3f76dfb6f
+```
+
+---
+
+### 7-4. 컨테이너 중지
+
+```bash
+# my-ubuntu 컨테이너 중지
+docker stop my-ubuntu    
+
+my-ubuntu
+```
+
+---
+
+### 7-5. 컨테이너 목록 확인
+
+`docker ps`는 실행 중인 컨테이너만, `docker ps -a`는 중지된 컨테이너까지 모두 확인합니다.
+
+```bash
+# 실행 중인 컨테이너 목록 확인
+docker ps    
+
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+```
+
+```bash
+# 중지된 컨테이너 포함 전체 목록 확인
+docker ps -a    
+
+ONTAINER ID   IMAGE          COMMAND        CREATED         STATUS                        PORTS     NAMES
+af5cbe0965ba   ubuntu:20.04   "sleep 1000"   4 minutes ago   Exited (137) 50 seconds ago             my-ubuntu
+```
+
+---
+
+### 7-6. 로그 및 리소스 확인
+
+```bash
+# 로그/리소스 확인을 위해 컨테이너 재시작
+docker start my-ubuntu    
+
+my-ubuntu
+```
+
+```bash
+# 컨테이너 로그 확인
+docker logs my-ubuntu    
+
+(sleep 명령은 출력이 없어 로그가 비어있음)
+```
+
+```bash
+# 리소스 사용량 1회 확인 (--no-stream: 실시간 모니터링 종료)
+docker stats --no-stream my-ubuntu    
+
+CONTAINER ID   NAME        CPU %     MEM USAGE / LIMIT   MEM %     NET I/O         BLOCK I/O     PIDS
+af5cbe0965ba   my-ubuntu   0.00%     692KiB / 15.67GiB   0.00%     1.13kB / 126B   2.45MB / 0B   1
 ```
 
 ---
@@ -427,7 +513,33 @@ Docker가 정상 설치되었는지 확인하는 가장 기본적인 테스트�
 
 ```bash
 docker run hello-world
-# 출력 예정
+
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+4f55086f7dd0: Pull complete 
+Digest: sha256:7f4da0fc94bcece205a8c0b6f4d11c8196924654ffe5c4d1aa439b7f632048b2
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
 ```
 
 ---
@@ -439,10 +551,20 @@ docker run hello-world
 ```bash
 docker run -it ubuntu /bin/bash
 
+root@72e874efc7c5:/#
+
 # 컨테이너 내부에서 실행
 ls
+
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+---
 echo 'Hello from inside container!'
-# 출력 예정
+
+Hello from inside container!
+
+# 컨테이너 종료
+exit 
 ```
 
 ---
@@ -459,6 +581,211 @@ echo 'Hello from inside container!'
 > 💡 실무에서는 컨테이너를 종료시키지 않기 위해 `exec`를 주로 사용합니다.
 
 ---
+## 9. 커스텀 이미지 제작 (Dockerfile)
+
+### 9-1. 선택 방식
+
+**(A) NGINX 베이스 이미지 + 정적 콘텐츠 교체** 방식을 선택했습니다.
+
+- **기존 베이스 이미지**: `nginx:latest`
+- **선택 이유**: 
+  - NGINX는 가장 널리 사용되는 웹 서버로 학습 가치가 높음
+  - 웹 서버 기능이 이미 포함되어 있어 추가 설정이 최소화됨
+  - 정적 웹 페이지 배포에 최적화되어 있음
+
+---
+
+### 9-2. 커스텀 콘텐츠 준비
+
+컨테이너에 넣을 정적 HTML 파일을 먼저 준비합니다.
+
+```bash
+# 프로젝트 디렉토리 생성 및 이동
+mkdir custom-nginx && cd custom-nginx
+
+# 사용자 정의 HTML 파일 생성
+cat > index.html << 'EOF'
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>My Custom NGINX</title>
+</head>
+<body>
+    <h1>🚀 커스텀 NGINX 서버에 오신 것을 환영합니다!</h1>
+    <p>이 페이지는 Docker 커스텀 이미지에서 제공됩니다.</p>
+</body>
+</html>
+EOF
+```
+
+```bash
+# 파일 생성 확인
+ls
+
+index.html
+```
+
+---
+
+### 9-3. Dockerfile 작성
+
+NGINX 베이스 이미지에 커스텀 HTML을 복사하는 Dockerfile을 작성합니다.
+
+```dockerfile
+# Dockerfile 생성
+cat > Dockerfile << 'EOF'
+
+# 베이스 이미지: 공식 NGINX 이미지 사용
+FROM nginx:latest
+
+# 이미지 메타데이터 설정 (작성자 정보)
+LABEL maintainer="5312ksy@gmail.com"
+LABEL description="Custom NGINX with static content"
+
+# NGINX 기본 페이지를 커스텀 HTML로 교체
+# /usr/share/nginx/html/ 은 NGINX의 기본 웹 루트 디렉토리
+COPY index.html /usr/share/nginx/html/index.html
+
+# 80번 포트를 사용할 것임을 명시
+EXPOSE 80
+
+# 헬스체크: 30초마다 웹 서버 정상 동작 여부 확인
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1
+
+# 컨테이너 시작 시 NGINX를 포그라운드로 실행하여 컨테이너 유지
+CMD ["nginx", "-g", "daemon off;"]
+
+#생성완료
+EOF
+```
+
+---
+
+### 9-4. 커스텀 포인트 설명
+
+| 항목 | 목적 |
+|------|------|
+| `FROM nginx:latest` | 공식 NGINX 이미지 사용으로 안정성과 신뢰성 확보 |
+| `LABEL` | 이미지 메타데이터 추가로 관리 편의성 확보 |
+| `COPY index.html` | 기본 페이지를 커스텀 콘텐츠로 교체 |
+| `EXPOSE 80` | 컨테이너가 사용할 포트 명시 (문서화 목적) |
+| `HEALTHCHECK` | 컨테이너 상태 자동 모니터링으로 안정성 확보 |
+| `daemon off` | 포그라운드 실행으로 컨테이너 정상 유지 |
+
+---
+
+### 9-5. 이미지 빌드
+
+작성한 Dockerfile로 커스텀 이미지를 빌드합니다.
+
+```bash
+# -t: 이미지 이름과 태그 지정
+# .: 현재 디렉토리의 Dockerfile 사용
+docker build -t my-custom-nginx:1.0 .
+
+[+] Building 1.7s (7/7) FINISHED                                      docker:orbstack
+ => [internal] load build definition from Dockerfile                             0.1s
+ => => transferring dockerfile: 325B                                             0.0s
+ => [internal] load metadata for docker.io/library/nginx:latest                  0.0s
+ => [internal] load .dockerignore                                                0.1s
+ => => transferring context: 2B                                                  0.0s
+ => [1/2] FROM docker.io/library/nginx:latest                                    0.8s
+ => [internal] load build context                                                0.4s
+ => => transferring context: 325B                                                0.0s
+ => [2/2] COPY index.html /usr/share/nginx/html/index.html                       0.1s
+ => exporting to image                                                           0.2s
+ => => exporting layers                                                          0.1s
+ => => writing image sha256:620f4e451ccba191c8544411dfc169e7d672ae4584712eb903b  0.0s
+ => => naming to docker.io/library/my-custom-nginx:1.0                           0.0s
+
+**이미지 확인:**
+```bash
+# 빌드된 이미지 목록 확인
+docker images | grep my-custom-nginx
+
+my-custom-nginx   1.0       620f4e451ccb   53 seconds ago   161MB
+```
+
+---
+
+### 9-6. 컨테이너 실행 및 포트 매핑
+
+호스트의 8080 포트를 컨테이너의 80 포트에 연결합니다.  
+브라우저에서 `localhost:8080`으로 접속할 수 있습니다.
+
+```bash
+# -d: 백그라운드 실행
+# -p 8080:80: 호스트 8080 포트 → 컨테이너 80 포트 매핑
+# --name: 컨테이너 이름 지정
+docker run -d -p 8080:80 --name my-nginx my-custom-nginx:1.0
+
+24c25ed68664e0d9f054a0eb21c491f0b20bd7712e4033b783edffd073fad757
+```
+
+**컨테이너 상태 확인:**
+```bash
+docker ps
+
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                   PORTS                                     NAMES
+24c25ed68664   my-custom-nginx:1.0   "/docker-entrypoint.…"   2 minutes ago   Up 2 minutes (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   my-nginx
+```
+
+---
+
+### 9-7. 접속 증거
+
+#### curl로 응답 확인
+
+```bash
+# 로컬 8080 포트로 HTTP 요청
+curl http://localhost:8080
+```
+
+**출력 예시:**
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>My Custom NGINX</title>
+</head>
+<body>
+    <h1>🚀 커스텀 NGINX 서버에 오신 것을 환영합니다!</h1>
+    <p>이 페이지는 Docker 커스텀 이미지에서 제공됩니다.</p>
+</body>
+</html>
+```
+
+#### 브라우저 접속 화면
+
+브라우저에서 `http://localhost:8080` 접속 결과:
+
+![브라우저 접속 화면](./screenshots/nginx-custom.png)
+
+---
+
+### 9-8. 정리 (컨테이너 종료)
+
+실습 완료 후 컨테이너를 정리합니다.
+
+```bash
+# 컨테이너 중지
+docker stop my-nginx
+
+# 컨테이너 삭제
+docker rm my-nginx
+```
+
+**출력 예시:**
+```
+my-nginx
+my-nginx
+```
+
+---
+
 
 ## 9. 커스텀 이미지 제작 (Dockerfile)
 
