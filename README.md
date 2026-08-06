@@ -628,7 +628,7 @@ index.html
 
 ---
 
-### 9-3. Dockerfile 작성
+### 9-3. Dockerfile 생성
 
 NGINX 베이스 이미지에 커스텀 HTML을 복사하는 Dockerfile을 작성합니다.
 
@@ -701,7 +701,7 @@ docker build -t my-custom-nginx:1.0 .
  => => naming to docker.io/library/my-custom-nginx:1.0                           0.0s
 
 **이미지 확인:**
-```bash
+
 # 빌드된 이미지 목록 확인
 docker images | grep my-custom-nginx
 
