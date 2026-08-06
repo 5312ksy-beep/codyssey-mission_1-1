@@ -722,14 +722,12 @@ my-custom-nginx   1.0       620f4e451ccb   53 seconds ago   161MB
 docker run -d -p 8080:80 --name my-nginx my-custom-nginx:1.0
 
 24c25ed68664e0d9f054a0eb21c491f0b20bd7712e4033b783edffd073fad757
-```
 
 **컨테이너 상태 확인:**
-```bash
 docker ps
 
-CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                   PORTS                                     NAMES
-24c25ed68664   my-custom-nginx:1.0   "/docker-entrypoint.…"   2 minutes ago   Up 2 minutes (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   my-nginx
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                    PORTS                                     NAMES
+24c25ed68664   my-custom-nginx:1.0   "/docker-entrypoint.…"   18 minutes ago   Up 18 minutes (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   my-nginx:8080->80/tcp   my-nginx
 ```
 
 ---
@@ -741,10 +739,7 @@ CONTAINER ID   IMAGE                 COMMAND                  CREATED         ST
 ```bash
 # 로컬 8080 포트로 HTTP 요청
 curl http://localhost:8080
-```
 
-**출력 예시:**
-```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -762,7 +757,7 @@ curl http://localhost:8080
 
 브라우저에서 `http://localhost:8080` 접속 결과:
 
-![브라우저 접속 화면](./screenshots/nginx-custom.png)
+![커스텀 NGINX 브라우저 접속](./screenshots/nginx-browser.png)
 
 ---
 
@@ -774,69 +769,13 @@ curl http://localhost:8080
 # 컨테이너 중지
 docker stop my-nginx
 
+my-nginx
+
 # 컨테이너 삭제
 docker rm my-nginx
-```
 
-**출력 예시:**
-```
-my-nginx
 my-nginx
 ```
-
----
-
-
-## 9. 커스텀 이미지 제작 (Dockerfile)
-
-### 9-1. 선택 방식
-
-**(A) NGINX 베이스 이미지 + 정적 콘텐츠 교체** 방식을 선택했습니다.
-
----
-
-### 9-2. Dockerfile
-
-```dockerfile
-# 출력 예정
-```
-
----
-
-### 9-3. 커스텀 포인트 설명
-
-| 항목 | 목적 |
-|------|------|
-| 추후 기입 | 추후 기입 |
-
----
-
-### 9-4. 이미지 빌드
-
-```bash
-docker build -t my-custom-image .
-# 출력 예정
-```
-
----
-
-### 9-5. 컨테이너 실행 및 포트 매핑
-
-호스트의 8080 포트를 컨테이너의 80 포트에 연결합니다.  
-브라우저에서 `localhost:8080`으로 접속할 수 있습니다.
-
-```bash
-docker run -p 8080:80 my-custom-image
-# 출력 예정
-```
-
-**접속 증거 (스크린샷 또는 curl 결과)**
-
-```bash
-curl http://localhost:8080
-# 출력 예정
-```
-
 ---
 
 ## 10. Docker 볼륨 영속성 검증
@@ -851,25 +790,35 @@ curl http://localhost:8080
 ### 10-2. 볼륨 생성 및 연결
 
 ```bash
-docker volume create my-volume       # 볼륨 생성
-# 출력 예정
+# 볼륨 생성
+docker volume create my-volume       
 
-docker run -it -v my-volume:/data ubuntu bash   # 볼륨 연결 후 실행
-echo 'volume test' > /data/test.txt  # 컨테이너 내부에서 파일 생성
+my-volume
+
+# 볼륨 연결 후 컨테이너 실행 
+docker run -it -v my-volume:/data ubuntu bash  
+
+# 컨테이너 내부에서 파일 생성 
+echo 'volume test' > /data/test.txt  
 exit
-# 출력 예정
+
+exit
 ```
 
 ---
 
-### 10-3. 컨테이너 삭제 후 데이터 확인
+### 10-3. 컨테이너 삭제 후 데이터 확인 (검증)
 
 ```bash
-docker rm [컨테이너ID]               # 컨테이너 삭제
-# 출력 예정
+# 컨테이너 삭제 (컨테이너 ID 확인후 진행, docker ps -a)
+docker rm f89b1a4f6b96              
 
-docker run -v my-volume:/data ubuntu cat /data/test.txt  # 데이터 유지 확인
-volume test                          # 데이터가 그대로 남아있음
+f89b1a4f6b96
+
+# 데이터 유지 확인
+docker run -v my-volume:/data ubuntu cat /data/test.txt 
+
+volume test    # 데이터가 그대로 남아있음       
 ```
 
 컨테이너를 삭제했음에도 볼륨에 저장된 데이터는 유지되는 것을 확인했습니다. ✅
@@ -883,8 +832,8 @@ volume test                          # 데이터가 그대로 남아있음
 커밋할 때 작성자 정보로 사용됩니다.
 
 ```bash
-git config --global user.name "이름"
-git config --global user.email "이메일"
+git config --global user.name "강서연"
+git config --global user.email "5312ksy@gmail.com"
 ```
 
 ---
@@ -893,7 +842,21 @@ git config --global user.email "이메일"
 
 ```bash
 git config --list
-# 출력 예정
+
+credential.helper=osxkeychain
+user.email=5312ksy@gmail.com
+user.name=강서연
+core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+core.ignorecase=true
+core.precomposeunicode=true
+submodule.active=.
+remote.origin.url=https://github.com/5312ksy-beep/codyssey-mission_1-1.git
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+branch.main.remote=origin
+:
 ```
 
 ---
