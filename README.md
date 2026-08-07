@@ -863,7 +863,37 @@ branch.main.remote=origin
 
 ### 11-3. GitHub 연동 증거
 
-> 스크린샷 첨부 예정
+```bash
+git clone https://github.com/5312ksy-beep/codyssey-mission_1-1.git
+cd codyssey-mission_1-1
+ls -la
+
+Cloning into 'codyssey-mission_1-1'...
+remote: Enumerating objects: 77, done.
+remote: Counting objects: 100% (77/77), done.
+remote: Compressing objects: 100% (54/54), done.
+remote: Total 77 (delta 19), reused 31 (delta 4), pack-reused 0 (from 0)
+Receiving objects: 100% (77/77), 96.28 KiB | 16.05 MiB/s, done.
+Resolving deltas: 100% (19/19), done.
+total 56
+drwxr-xr-x   6 c5312ksy5312  c5312ksy5312    192 Aug  7 14:00 .
+drwxr-xr-x   7 c5312ksy5312  c5312ksy5312    224 Aug  7 14:00 ..
+drwxr-xr-x  12 c5312ksy5312  c5312ksy5312    384 Aug  7 14:00 .git
+drwxr-xr-x   5 c5312ksy5312  c5312ksy5312    160 Aug  7 14:00 custom-nginx
+-rwxr-xr-x   1 c5312ksy5312  c5312ksy5312     14 Aug  7 14:00 hello.txt
+-rw-r--r--   1 c5312ksy5312  c5312ksy5312  22234 Aug  7 14:00 README.md
+```
+
+```bash
+# commit 이력 확인
+c5312ksy5312@c6r7s1 codyssey-mission_1-1 % git log --oneline -5
+
+f3c12f3 (HEAD -> main, origin/main, origin/HEAD) 11단계: Git 연동 증거 스크린샷 추가
+0a5c887 README.md 업데이트 - Docker 커스텀 이미지 설명 추가2
+3f1e1c7 README.md 업데이트 - Docker 커스텀 이미지 설명 추가
+8f29145 Docker 커스텀 이미지 제작 완료 및 README 업데이트
+333b3cd README.md 수정2
+```
 
 ---
 
