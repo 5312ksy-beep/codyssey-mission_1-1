@@ -896,5 +896,3 @@ f3c12f3 (HEAD -> main, origin/main, origin/HEAD) 11단계: Git 연동 증거 스
 ```
 
 ---
-
-asfdsfsffsf sfs
