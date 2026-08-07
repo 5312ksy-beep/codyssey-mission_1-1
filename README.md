@@ -757,7 +757,7 @@ curl http://localhost:8080
 
 브라우저에서 `http://localhost:8080` 접속 결과:
 
-![커스텀 NGINX 브라우저 접속](./screenshots/nginx-browser.png)
+![커스텀 NGINX 브라우저 접속](./custom-nginx/screenshots/nginx-browser.png)
 
 ---
 
