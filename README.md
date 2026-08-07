@@ -32,14 +32,14 @@
 | 항목 | 완료 여부 |
 |------|----------|
 | 터미널 기본 명령 수행 | ✅ |
-| 파일/디렉토리 권한 변경 | ⬜ |
-| Docker 설치 및 버전 확인 | ⬜ |
-| Docker 기본 운영 명령 | ⬜ |
-| hello-world 컨테이너 실행 | ⬜ |
-| ubuntu 컨테이너 진입 및 명령 수행 | ⬜ |
-| Dockerfile 커스텀 이미지 제작 | ⬜ |
-| 포트 매핑 및 접속 확인 | ⬜ |
-| Docker 볼륨 영속성 검증 | ⬜ |
+| 파일/디렉토리 권한 변경 | ✅ |
+| Docker 설치 및 버전 확인 | ✅ |
+| Docker 기본 운영 명령 | ✅ |
+| hello-world 컨테이너 실행 | ✅ |
+| ubuntu 컨테이너 진입 및 명령 수행 | ✅ |
+| Dockerfile 커스텀 이미지 제작 | ✅ |
+| 포트 매핑 및 접속 확인 | ✅ |
+| Docker 볼륨 영속성 검증 | ✅ |
 | Git 설정 및 GitHub 연동 | ✅ |
 
 ---
@@ -896,16 +896,3 @@ f3c12f3 (HEAD -> main, origin/main, origin/HEAD) 11단계: Git 연동 증거 스
 ```
 
 ---
-
-## 12. 검증 방법 요약
-
-| 항목 | 검증 명령 | 결과 위치 |
-|------|----------|----------|
-| 터미널 명령 | pwd, ls, touch, cp, mv, rm | 4장 |
-| 파일 권한 | ls -l, chmod | 5장 |
-| Docker 설치 | docker --version, docker info | 6장 |
-| Docker 운영 | docker images, docker ps | 7장 |
-| 컨테이너 실행 | docker run | 8장 |
-| 이미지 빌드 | docker build | 9장 |
-| 볼륨 영속성 | docker volume create | 10장 |
-| Git 연동 | git config --list | 11장 |
